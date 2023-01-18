@@ -8,3 +8,7 @@
      hover:border-[#f7ab0a]/40 hover:text-[#f7ab0a]/40;
   }
 }
+
+html {
+  font-size: 10px !important;
+}
