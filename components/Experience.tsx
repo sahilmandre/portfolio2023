@@ -1,10 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import ExperienceData from "./ExperienceData";
+import { Experience } from "../typing";
 
-type Props = {};
+type Props = {
+  experiences: Experience[];
+};
 
-function ExperienceSection({}: Props) {
+function ExperienceSection({ experiences }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -17,10 +20,9 @@ function ExperienceSection({}: Props) {
       </h3>
 
       <div className="w-full mt-[10rem] flex space-x-5 overflow-x-scroll p-10 snap-x snap-mandatory scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#f7ab0a]/80">
-        <ExperienceData />
-        <ExperienceData />
-        <ExperienceData />
-        <ExperienceData />
+        {experiences?.map((experience) => (
+          <ExperienceData key={experience._id} experience={experience} />
+        ))}
       </div>
     </motion.div>
   );

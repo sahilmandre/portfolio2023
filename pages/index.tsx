@@ -28,7 +28,7 @@ type Props = {
 
 export default function Home({
   pageInfo,
-  experience,
+  experiences,
   skills,
   projects,
   socials,
@@ -57,18 +57,18 @@ export default function Home({
 
       {/* about */}
       <section id="about" className="snap-center">
-        <About />
+        <About pageInfo={pageInfo} />
       </section>
 
       {/* experience  */}
       <section id="experience" className="snap-center">
-        <ExperienceSection />
+        <ExperienceSection experiences={experiences} />
       </section>
 
       {/* skills  */}
 
       <section id="skills" className="snap-start">
-        <Skills />
+        <Skills skills={skills} />
       </section>
 
       {/* projects  */}
@@ -94,7 +94,7 @@ export default function Home({
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   const pageInfo: PageInfo = await fetchPageInfo();
-  const experience: Experience[] = await fetchExperiences();
+  const experiences: Experience[] = await fetchExperiences();
   const skills: Skill[] = await fetchSkills();
   const projects: Project[] = await fetchProjects();
   const socials: Social[] = await fetchSocials();
@@ -102,7 +102,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
   return {
     props: {
       pageInfo,
-      experience,
+      experiences,
       skills,
       projects,
       socials,

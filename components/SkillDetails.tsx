@@ -1,11 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Skill } from "../typing";
+import { urlForTemp } from "../sanity";
 
 type Props = {
   directionLeft?: boolean;
+  skill: Skill;
 };
 
-function SkillDetails({ directionLeft }: Props) {
+function SkillDetails({ directionLeft, skill }: Props) {
   return (
     <div className="group relative flex cursor-pointer">
       <motion.img
@@ -15,7 +18,7 @@ function SkillDetails({ directionLeft }: Props) {
         }}
         transition={{ duration: 1 }}
         whileInView={{ opacity: 1, x: 0 }}
-        src="https://www.sanity.io/static/images/logo_rounded_square.png"
+        src={urlForTemp(skill?.image).url()}
         className="rounded-2xl border border-gray-500 object-cover 
         w-20 h-20 xl:w-[8rem] xl:h-36 filter group-hover:grayscale transition
          duration-300 ease-in-out"
@@ -26,7 +29,9 @@ function SkillDetails({ directionLeft }: Props) {
       w-[100%] h-20 xl:w-[100%] xl:h-36 rounded-2xl z-0"
       >
         <div className="flex items-center justify-center h-full">
-          <p className="text-xl font-bold text-black opacity-100">100%</p>
+          <p className="text-xl font-bold text-black opacity-100">
+            {skill?.progress}
+          </p>
         </div>
       </div>
     </div>
