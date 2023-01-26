@@ -1,20 +1,38 @@
 import { HomeIcon } from "@heroicons/react/24/solid";
-import { Inter } from "@next/font/google";
+import { GetStaticProps } from "next";
 import Link from "next/dist/client/link";
 import Head from "next/head";
 import About from "../components/About";
 import Contacts from "../components/Contacts";
-import Experience from "../components/Experience";
+import ExperienceSection from "../components/Experience";
 import Header from "../components/Header";
 import Projects from "../components/Projects";
 import Skills from "../components/Skills";
+import { Experience, PageInfo, Project, Skill, Social } from "../typing.d";
 import Hero from "./../components/Hero";
+import { fetchPageInfo } from "../utils/fetchPageInfo";
+import { fetchExperiences } from "../utils/fetchExperiences";
+import { fetchSkills } from "../utils/fetchSkills";
+import { fetchProjects } from "../utils/fetchProjects";
+import { fetchSocials } from "../utils/fetchSocials";
+// import { imageUrlBuilder } from "@sanity/image-url/lib/types/builder";
+import { sanityClientTemp } from "../sanity";
 
-// const inter = Inter({
-//   subsets: ["latin"],
-// });
+type Props = {
+  pageInfo: PageInfo;
+  experience: Experience[];
+  skills: Skill[];
+  projects: Project[];
+  socials: Social[];
+};
 
-export default function Home() {
+export default function Home({
+  pageInfo,
+  experience,
+  skills,
+  projects,
+  socials,
+}: Props) {
   return (
     <div
       className="bg-[rgb(36,36,36)] text-white h-screen snap-y 
@@ -30,11 +48,11 @@ export default function Home() {
       </Head>
 
       {/* Header  */}
-      <Header />
+      <Header socials={socials} />
 
       {/* hero  */}
       <section id="hero" className="snap-start">
-        <Hero />
+        <Hero pageInfo={pageInfo} />
       </section>
 
       {/* about */}
@@ -44,7 +62,7 @@ export default function Home() {
 
       {/* experience  */}
       <section id="experience" className="snap-center">
-        <Experience />
+        <ExperienceSection />
       </section>
 
       {/* skills  */}
@@ -73,3 +91,25 @@ export default function Home() {
     </div>
   );
 }
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const pageInfo: PageInfo = await fetchPageInfo();
+  const experience: Experience[] = await fetchExperiences();
+  const skills: Skill[] = await fetchSkills();
+  const projects: Project[] = await fetchProjects();
+  const socials: Social[] = await fetchSocials();
+
+  return {
+    props: {
+      pageInfo,
+      experience,
+      skills,
+      projects,
+      socials,
+    },
+    // Next js will attempt to re-generate this page
+    // when the requested comes in.
+    //  At most once per 200 seconds.
+    revalidate: 200,
+  };
+};

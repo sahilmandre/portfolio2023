@@ -1,13 +1,19 @@
+// import { url } from "inspector";
+// import { imageUrlBuilder } from "@sanity/image-url/lib/types/builder";
 import Link from "next/link";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
+import { sanityClient, urlFor, sanityClientTemp, urlForTemp } from "../sanity";
+import { PageInfo } from "../typing";
 import BackgroundCircles from "./BackgroundCircles";
 
-type Props = {};
+type Props = {
+  pageInfo: PageInfo;
+};
 
-function Hero({}: Props) {
+export default function Hero({ pageInfo }: Props) {
   const [text, count] = useTypewriter({
     words: [
-      "Hi, The Name's Sahil Mandre ",
+      `Hi, The Name's ${pageInfo?.name}`,
       "I am a guy who loves Front-end Development ",
       "<But-Also-Loves-Riding>",
     ],
@@ -23,7 +29,7 @@ function Hero({}: Props) {
       <BackgroundCircles />
       <img
         className="relative rounded-full h-32 w-32 mx-auto object-cover"
-        src="/profilePic.png"
+        src={urlForTemp(pageInfo?.heroImage).url()}
         alt="Profile picture of Sahil Mandre"
       />
 
@@ -55,4 +61,4 @@ function Hero({}: Props) {
   );
 }
 
-export default Hero;
+// export default Hero;

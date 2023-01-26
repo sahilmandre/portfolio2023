@@ -4,7 +4,7 @@ import ExperienceData from "./ExperienceData";
 
 type Props = {};
 
-function Experience({}: Props) {
+function ExperienceSection({}: Props) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -26,4 +26,4 @@ function Experience({}: Props) {
   );
 }
 
-export default Experience;
+export default ExperienceSection;
