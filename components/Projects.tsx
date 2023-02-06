@@ -25,6 +25,7 @@ function Projects({ projects }: Props) {
       >
         {projects?.map((project, index) => (
           <div
+            key={project._id}
             className="w-screen flex-shrink-0 snap-center flex justify-center items-center  flex-col space-y-5
           p-20 md:p-44 h-screen "
           >
@@ -47,7 +48,7 @@ function Projects({ projects }: Props) {
                 {project?.title}
               </h4>
 
-              <div className="flex items-center justify-center">
+              <div className="flex items-center space-x-2 justify-center">
                 {project?.technologies.map((technology) => (
                   <span>
                     {technology?.image && (

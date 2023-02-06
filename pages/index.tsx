@@ -20,7 +20,7 @@ import { sanityClientTemp } from "../sanity";
 
 type Props = {
   pageInfo: PageInfo;
-  experience: Experience[];
+  experiences: Experience[];
   skills: Skill[];
   projects: Project[];
   socials: Social[];
@@ -40,7 +40,7 @@ export default function Home({
     scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#f7ab0a]/80"
     >
       <Head>
-        <title>Sahil Mandre </title>
+        <title>{pageInfo.name} - Portfolio </title>
         <meta name="description" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
