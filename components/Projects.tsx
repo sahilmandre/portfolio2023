@@ -1,11 +1,12 @@
-import React from "react";
 import { motion } from "framer-motion";
+import { urlForTemp } from "../sanity";
+import { Project } from "../typing";
 
-type Props = {};
+type Props = {
+  projects: Project[];
+};
 
-function Projects({}: Props) {
-  const projects = [1, 2, 3, 4, 5];
-
+function Projects({ projects }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -22,17 +23,18 @@ function Projects({}: Props) {
         className="relative w-full flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20
       scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#f7ab0a]/80"
       >
-        {projects.map((project, index) => (
+        {projects?.map((project, index) => (
           <div
             className="w-screen flex-shrink-0 snap-center flex justify-center items-center  flex-col space-y-5
           p-20 md:p-44 h-screen "
           >
             <motion.img
+              className="md:h-3/4 sm:h-auto  w-auto object-contain"
               initial={{ y: -300, opacity: 0 }}
               transition={{ duration: 1.2 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              src="https://portfolio-sahilmandre.vercel.app/assets/images/projectImages/hulu.webp"
+              src={urlForTemp(project?.image).url()}
               alt=""
             />
 
@@ -42,13 +44,26 @@ function Projects({}: Props) {
                   {" "}
                   Project {index + 1} of {projects.length}:
                 </span>{" "}
-                Hulu Clone
+                {project?.title}
               </h4>
+
+              <div className="flex items-center justify-center">
+                {project?.technologies.map((technology) => (
+                  <span>
+                    {technology?.image && (
+                      <img
+                        className="h-10 w-10 rounded-full"
+                        key={technology._id}
+                        src={urlForTemp(technology.image).url()}
+                        alt=""
+                      />
+                    )}
+                  </span>
+                ))}
+              </div>
+
               <p className="text-lg text-center md:text-left ">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed
-                aliquam, quidem ullam, porro blanditiis sint eius qui aut
-                dignissimos, sapiente quis sit optio aliquid pariatur ratione
-                deserunt facere ex ad?
+                {project?.summary}
               </p>
             </div>
           </div>

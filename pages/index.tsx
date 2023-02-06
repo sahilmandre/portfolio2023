@@ -73,7 +73,7 @@ export default function Home({
 
       {/* projects  */}
       <section id="projects" className="snap-start">
-        <Projects />
+        <Projects projects={projects} />
       </section>
 
       {/* contact me  */}
